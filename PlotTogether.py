@@ -1,4 +1,5 @@
 import json
+from os import path
 import matplotlib.pyplot as plt
 
 # experiment_folder = './output/model_iter4000_lr0005_wf1_date2020_03_20__05_16_45'
@@ -11,7 +12,8 @@ def load_json_arr(json_path):
     return lines
 
 # experiment_metrics = load_json_arr(experiment_folder + '/metrics.json')
-experiment_metrics = load_json_arr('metrics.json')
+path = 'output/metrics.json'
+experiment_metrics = load_json_arr(path)
 fig, ax1 = plt.subplots(dpi=150)
 ax1.set_xlabel('Iteration')
 ax1.set_ylabel('Loss')
@@ -19,9 +21,17 @@ ax1.set_ylabel('Loss')
     # [x['iteration'] for x in experiment_metrics], 
     # [x['bbox_loss'] for x in experiment_metrics], color="black", label="Total Loss")
 color = 'tab:blue'
-ax1.plot(
-    [x['iteration'] for x in experiment_metrics if 'validation_loss' in x], 
-    [x['validation_loss'] for x in experiment_metrics if 'validation_loss' in x], color=color, label="Val Loss")
+retinanet=True
+
+if retinanet:
+    ax1.plot(
+        [x['iteration'] for x in experiment_metrics if 'total_loss' in x], 
+        [x['total_loss'] for x in experiment_metrics if 'total_loss' in x], color=color, label="Val Loss")
+else:
+    ax1.plot(
+        [x['iteration'] for x in experiment_metrics if 'validation_loss' in x], 
+        [x['validation_loss'] for x in experiment_metrics if 'validation_loss' in x], color=color, label="Val Loss")
+
 plt.legend(['Val Loss'],loc='upper left')
  
 # plt.plot(

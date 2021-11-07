@@ -11,5 +11,11 @@ def LatLon_from_XY(product, x, y):
     else:
         return geo_pos.lat, geo_pos.lon
 
-product = ProductIO.readProduct('ShipTest/S1A_IW_GRDH_1SDV_20200718T171436_20200718T171501_033512_03E220_DEFC_msk.tif')
-print(LatLon_from_XY(product,0,0))
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+
+    main()
